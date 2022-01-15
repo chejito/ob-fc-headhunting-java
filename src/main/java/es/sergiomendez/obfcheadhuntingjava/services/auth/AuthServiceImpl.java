@@ -89,4 +89,5 @@ public class AuthServiceImpl implements AuthService {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
 }

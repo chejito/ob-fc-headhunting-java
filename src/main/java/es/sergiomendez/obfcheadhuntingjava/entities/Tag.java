@@ -2,8 +2,6 @@ package es.sergiomendez.obfcheadhuntingjava.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="tags")
@@ -14,10 +12,6 @@ public class Tag implements Serializable {
     private Long id;
 
     private String name;
-
-////    Relación
-//    @ManyToMany
-//    private Set<Student> students = new HashSet<>();
 
     public Tag() {}
 
@@ -45,14 +39,6 @@ public class Tag implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-//    public Set<Student> getStudents() {
-//        return students;
-//    }
-//
-//    public void setStudents(Set<Student> students) {
-//        this.students = students;
-//    }
 
     @Override
     public String toString() {
