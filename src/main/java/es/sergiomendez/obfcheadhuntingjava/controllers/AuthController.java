@@ -1,9 +1,8 @@
 package es.sergiomendez.obfcheadhuntingjava.controllers;
 
-import es.sergiomendez.obfcheadhuntingjava.security.payload.JwtResponse;
-import es.sergiomendez.obfcheadhuntingjava.security.payload.LoginRequest;
-import es.sergiomendez.obfcheadhuntingjava.security.payload.MessageResponse;
-import es.sergiomendez.obfcheadhuntingjava.security.payload.RegisterRequest;
+import es.sergiomendez.obfcheadhuntingjava.dto.LoginRequest;
+import es.sergiomendez.obfcheadhuntingjava.dto.MessageResponse;
+import es.sergiomendez.obfcheadhuntingjava.dto.RegisterRequest;
 import es.sergiomendez.obfcheadhuntingjava.services.auth.AuthServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

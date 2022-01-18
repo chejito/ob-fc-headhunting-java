@@ -3,10 +3,10 @@ package es.sergiomendez.obfcheadhuntingjava.services.auth;
 import es.sergiomendez.obfcheadhuntingjava.entities.User;
 import es.sergiomendez.obfcheadhuntingjava.repositories.UserRepository;
 import es.sergiomendez.obfcheadhuntingjava.security.jwt.JwtTokenUtil;
-import es.sergiomendez.obfcheadhuntingjava.security.payload.JwtResponse;
-import es.sergiomendez.obfcheadhuntingjava.security.payload.LoginRequest;
-import es.sergiomendez.obfcheadhuntingjava.security.payload.MessageResponse;
-import es.sergiomendez.obfcheadhuntingjava.security.payload.RegisterRequest;
+import es.sergiomendez.obfcheadhuntingjava.dto.JwtResponse;
+import es.sergiomendez.obfcheadhuntingjava.dto.LoginRequest;
+import es.sergiomendez.obfcheadhuntingjava.dto.MessageResponse;
+import es.sergiomendez.obfcheadhuntingjava.dto.RegisterRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -82,8 +82,6 @@ public class AuthServiceImpl implements AuthService {
                 encoder.encode(signUpRequest.getPassword()),
                 signUpRequest.getEmail(),
                 signUpRequest.getFullname());
-
-        System.out.println(user);
 
         userRepository.save(user);
 

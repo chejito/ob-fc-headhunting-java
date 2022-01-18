@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface TagService {
     ResponseEntity<?> createTag(TagDto tagDto);
-    ResponseEntity<?> getTag(String tagName);
     List<Tag> getAllTags();
 }

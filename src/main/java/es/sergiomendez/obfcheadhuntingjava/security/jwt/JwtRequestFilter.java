@@ -1,6 +1,6 @@
 package es.sergiomendez.obfcheadhuntingjava.security.jwt;
 
-import es.sergiomendez.obfcheadhuntingjava.security.service.UserDetailsServiceImpl;
+import es.sergiomendez.obfcheadhuntingjava.security.userdetails.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

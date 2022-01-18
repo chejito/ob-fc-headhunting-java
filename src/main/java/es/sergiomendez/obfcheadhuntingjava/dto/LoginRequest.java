@@ -1,4 +1,4 @@
-package es.sergiomendez.obfcheadhuntingjava.security.payload;
+package es.sergiomendez.obfcheadhuntingjava.dto;
 
 public class LoginRequest {
 

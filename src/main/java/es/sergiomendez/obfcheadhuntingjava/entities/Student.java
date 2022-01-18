@@ -1,5 +1,7 @@
 package es.sergiomendez.obfcheadhuntingjava.entities;
 
+import es.sergiomendez.obfcheadhuntingjava.dto.StudentDto;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -189,4 +191,5 @@ public class Student implements Serializable {
                 ", resumeUrl='" + resumeUrl + '\'' +
                 '}';
     }
+
 }

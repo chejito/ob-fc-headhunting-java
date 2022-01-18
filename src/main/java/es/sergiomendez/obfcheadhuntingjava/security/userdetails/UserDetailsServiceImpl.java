@@ -1,4 +1,4 @@
-package es.sergiomendez.obfcheadhuntingjava.security.service;
+package es.sergiomendez.obfcheadhuntingjava.security.userdetails;
 
 import es.sergiomendez.obfcheadhuntingjava.entities.User;
 import es.sergiomendez.obfcheadhuntingjava.repositories.UserRepository;

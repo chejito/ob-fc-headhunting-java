@@ -2,7 +2,7 @@ package es.sergiomendez.obfcheadhuntingjava.security.config;
 
 import es.sergiomendez.obfcheadhuntingjava.security.jwt.JwtAuthEntryPoint;
 import es.sergiomendez.obfcheadhuntingjava.security.jwt.JwtRequestFilter;
-import es.sergiomendez.obfcheadhuntingjava.security.service.UserDetailsServiceImpl;
+import es.sergiomendez.obfcheadhuntingjava.security.userdetails.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
