@@ -1,6 +1,7 @@
 package es.sergiomendez.obfcheadhuntingjava.controllers;
 
 import es.sergiomendez.obfcheadhuntingjava.dto.StudentDto;
+import es.sergiomendez.obfcheadhuntingjava.entities.Tag;
 import es.sergiomendez.obfcheadhuntingjava.services.students.StudentServiceImpl;
 import es.sergiomendez.obfcheadhuntingjava.services.tags.TagServiceImpl;
 import org.slf4j.Logger;
@@ -8,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 public class StudentController {
@@ -23,9 +24,26 @@ public class StudentController {
         this.tagService = tagService;
     }
 
+    /*@GetMapping("api/students")
+    public ResponseEntity<?> findAllStudents(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "12") int size
+        ) {
+
+        return studentService.getAllStudents(page, size);
+    }*/
+
     @GetMapping("api/students")
-    public List<StudentDto> findAllStudents() {
-        return studentService.getAllStudents();
+    public ResponseEntity<?> findAllStudents(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "12") int size,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) Boolean remote,
+            @RequestParam(required = false) Boolean mobility,
+            @RequestParam(required = false) String[] tags
+    ) {
+
+        return studentService.getAllStudents(page, size, city, remote, mobility, tags);
     }
 
     @GetMapping("api/students/{fullName}")
@@ -45,12 +63,7 @@ public class StudentController {
 
     @DeleteMapping("/api/students/{fullName}")
     public ResponseEntity<?> deleteStudent(@PathVariable String fullName) {
-        return studentService.deleteStudentByFullName(fullName);
-    }
-
-    @DeleteMapping("/api/students/{username}")
-    public ResponseEntity<?> deleteAllStudentsFromUser(@PathVariable String username) {
-        return studentService.deleteAllStudentsFromUser(username);
+        return studentService.deleteStudent(fullName);
     }
 
     @DeleteMapping("/api/students")

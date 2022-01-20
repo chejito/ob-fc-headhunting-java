@@ -1,14 +1,13 @@
 package es.sergiomendez.obfcheadhuntingjava.services.students;
 
 import es.sergiomendez.obfcheadhuntingjava.dto.StudentDto;
-import es.sergiomendez.obfcheadhuntingjava.entities.Student;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public interface StudentService {
 
-    List<StudentDto> getAllStudents();
+    ResponseEntity<?> getAllStudents(Integer page, Integer size, String city, Boolean remote, Boolean mobility, String[] tags);
+
+//    ResponseEntity<?> getAllStudentsWithFilters(Integer page, Integer size, String city, Boolean remote, Boolean mobility, String[] tags);
 
     ResponseEntity<?> getStudentByFullName(String fullName);
 
@@ -16,9 +15,7 @@ public interface StudentService {
 
     ResponseEntity<?> updateStudent(StudentDto studentDto);
 
-    ResponseEntity<?> deleteStudentByFullName(String fullName);
-
-    ResponseEntity<?> deleteAllStudentsFromUser(String username);
+    ResponseEntity<?> deleteStudent(String fullName);
 
     ResponseEntity<?> deleteAllStudents();
 }

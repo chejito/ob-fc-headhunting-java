@@ -1,7 +1,5 @@
 package es.sergiomendez.obfcheadhuntingjava.entities;
 
-import es.sergiomendez.obfcheadhuntingjava.dto.StudentDto;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -28,14 +26,14 @@ public class Student implements Serializable {
     @Column(nullable = false, length = 50, unique = true)
     private String email;
 
-    private String modality;
+    private Boolean remote;
 
-    private Boolean move;
+    private Boolean mobility;
 
     @Column(name = "photo_url")
     private String photoUrl;
 
-    @Column(name = "resume_url")
+    @Column(name = "resumee_url")
     private String resumeUrl;
 
 //    Relaciones
@@ -55,27 +53,27 @@ public class Student implements Serializable {
     public Student() {}
 
     public Student(String fullname, String country, String city, String phoneNumber, String email,
-                   String modality, Boolean move, String photoUrl, String resumeUrl) {
+                   Boolean remote, Boolean mobility, String photoUrl, String resumeUrl) {
         this.fullname = fullname;
         this.country = country;
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.modality = modality;
-        this.move = move;
+        this.remote = remote;
+        this.mobility = mobility;
         this.photoUrl = photoUrl;
         this.resumeUrl = resumeUrl;
     }
 
-    public Student(Long id, String fullname, String country, String city, String phoneNumber, String email, String modality, Boolean move, String photoUrl, String resumeUrl) {
+    public Student(Long id, String fullname, String country, String city, String phoneNumber, String email, Boolean remote, Boolean mobility, String photoUrl, String resumeUrl) {
         this.id = id;
         this.fullname = fullname;
         this.country = country;
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.modality = modality;
-        this.move = move;
+        this.remote = remote;
+        this.mobility = mobility;
         this.photoUrl = photoUrl;
         this.resumeUrl = resumeUrl;
     }
@@ -128,20 +126,20 @@ public class Student implements Serializable {
         this.email = email;
     }
 
-    public String getModality() {
-        return modality;
+    public Boolean getRemote() {
+        return remote;
     }
 
-    public void setModality(String modality) {
-        this.modality = modality;
+    public void setRemote(Boolean remote) {
+        this.remote = remote;
     }
 
-    public Boolean getMove() {
-        return move;
+    public Boolean getMobility() {
+        return mobility;
     }
 
-    public void setMove(Boolean move) {
-        this.move = move;
+    public void setMobility(Boolean mobility) {
+        this.mobility = mobility;
     }
 
     public String getPhotoUrl() {
@@ -185,8 +183,8 @@ public class Student implements Serializable {
                 ", city='" + city + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", modality='" + modality + '\'' +
-                ", move=" + move +
+                ", remote='" + remote + '\'' +
+                ", mobility=" + mobility +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", resumeUrl='" + resumeUrl + '\'' +
                 '}';

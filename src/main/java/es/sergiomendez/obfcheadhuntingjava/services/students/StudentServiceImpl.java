@@ -1,5 +1,6 @@
 package es.sergiomendez.obfcheadhuntingjava.services.students;
 
+import es.sergiomendez.obfcheadhuntingjava.daos.StudentDaoImpl;
 import es.sergiomendez.obfcheadhuntingjava.dto.MessageResponse;
 import es.sergiomendez.obfcheadhuntingjava.dto.MessageStudentResponse;
 import es.sergiomendez.obfcheadhuntingjava.dto.StudentDto;
@@ -9,6 +10,9 @@ import es.sergiomendez.obfcheadhuntingjava.entities.User;
 import es.sergiomendez.obfcheadhuntingjava.repositories.StudentRepository;
 import es.sergiomendez.obfcheadhuntingjava.repositories.TagRepository;
 import es.sergiomendez.obfcheadhuntingjava.repositories.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,26 +22,84 @@ import java.util.*;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
+    private final StudentDaoImpl studentDao;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository, UserRepository userRepository, TagRepository tagRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository, StudentDaoImpl studentDao, UserRepository userRepository, TagRepository tagRepository) {
         this.studentRepository = studentRepository;
+        this.studentDao = studentDao;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
     }
 
     @Override
-    public List<StudentDto> getAllStudents() {
-        List<Student> students = studentRepository.findAll();
-        List<StudentDto> studentDtos = new ArrayList<>();
+    public ResponseEntity<?> getAllStudents(Integer page, Integer size, String city, Boolean remote, Boolean mobility, String[] tags) {
+        try {
+            List<StudentDto> studentDtos = new ArrayList<>();
+            /*Pageable paging = PageRequest.of(page, size);
 
-        students.forEach(student -> {
-            studentDtos.add(getDtoFromStudent(student));
-        });
+            Page<Student> pageStudents = studentRepository
+                    .findAll(paging);
 
-        return studentDtos;
+            List<Student> students = pageStudents.getContent();
+*/          List<Student> students = studentDao.findAll(city, remote, mobility);
+            students.forEach(student -> {
+                studentDtos.add(getDtoFromStudent(student));
+            });
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("students", studentDtos);
+            /*response.put("currentPage", pageStudents.getNumber());
+            response.put("totalItems", pageStudents.getTotalElements());
+            response.put("totalPages", pageStudents.getTotalPages());*/
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: "+ e.getMessage()));
+        }
+
     }
+
+    /*@Override
+    public ResponseEntity<?> getAllStudentsWithFilters(Integer page, Integer size, String city, Boolean remote, Boolean mobility, String[] tags) {
+        System.out.println("Page: " + page + " size: "+ size + " city: " +  city + " remote: " + remote + " mobility: " + mobility + " tags: " + Arrays.toString(tags));
+        try {
+            List<StudentDto> studentDtos = new ArrayList<>();
+            List<Tag> tagList = new ArrayList<>();
+            Arrays.stream(tags).forEach(tag -> {
+                Tag newTag = tagRepository.findByName(tag);
+                tagList.add(newTag);
+            });
+
+            Tag[] tagArray = new Tag[tagList.size()];
+            tagArray = tagList.toArray(tagArray);
+
+            Pageable paging = PageRequest.of(page, size);
+
+            Page<Student> pageStudents = studentRepository.findByCityAndModalityAndMoveAndTags(city, remote, mobility, tagArray, paging);
+
+            List<Student> students = pageStudents.getContent();
+
+            students.forEach(student -> {
+                studentDtos.add(getDtoFromStudent(student));
+            });
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("students", studentDtos);
+            response.put("currentPage", pageStudents.getNumber());
+            response.put("totalItems", pageStudents.getTotalElements());
+            response.put("totalPages", pageStudents.getTotalPages());
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: "+ e.getMessage()));
+        }
+    }*/
 
     @Override
     public ResponseEntity<?> getStudentByFullName(String fullName) {
@@ -110,12 +172,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ResponseEntity<?> deleteStudentByFullName(String fullName) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<?> deleteAllStudentsFromUser(String username) {
+    public ResponseEntity<?> deleteStudent(String fullName) {
         return null;
     }
 
@@ -132,8 +189,8 @@ public class StudentServiceImpl implements StudentService {
         student.setCity(dto.getCity());
         student.setPhoneNumber(dto.getPhoneNumber());
         student.setEmail(dto.getEmail());
-        student.setModality(dto.getModality());
-        student.setMove(dto.getMove());
+        student.setRemote(dto.getRemote());
+        student.setMobility(dto.getMobility());
         student.setPhotoUrl(dto.getPhotoUrl());
         student.setResumeUrl(dto.getResumeUrl());
 
@@ -148,8 +205,8 @@ public class StudentServiceImpl implements StudentService {
         dto.setCity(student.getCity());
         dto.setPhoneNumber(student.getPhoneNumber());
         dto.setEmail(student.getEmail());
-        dto.setModality(student.getModality());
-        dto.setMove(student.getMove());
+        dto.setRemote(student.getRemote());
+        dto.setMobility(student.getMobility());
         dto.setPhotoUrl(student.getPhotoUrl());
         dto.setResumeUrl(student.getResumeUrl());
         dto.setUsername(student.getUser().getUsername());

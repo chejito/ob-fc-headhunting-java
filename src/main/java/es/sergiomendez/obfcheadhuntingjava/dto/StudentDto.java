@@ -1,7 +1,5 @@
 package es.sergiomendez.obfcheadhuntingjava.dto;
 
-import es.sergiomendez.obfcheadhuntingjava.entities.Student;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +10,8 @@ public class StudentDto {
     private String city;
     private String phoneNumber;
     private String email;
-    private String modality;
-    private Boolean move;
+    private Boolean remote;
+    private Boolean mobility;
     private String photoUrl;
     private String resumeUrl;
 
@@ -28,8 +26,8 @@ public class StudentDto {
                       String city,
                       String phoneNumber,
                       String email,
-                      String modality,
-                      Boolean move,
+                      Boolean remote,
+                      Boolean mobility,
                       String photoUrl,
                       String resumeUrl,
                       String username,
@@ -39,8 +37,8 @@ public class StudentDto {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.modality = modality;
-        this.move = move;
+        this.remote = remote;
+        this.mobility = mobility;
         this.photoUrl = photoUrl;
         this.resumeUrl = resumeUrl;
         this.username = username;
@@ -87,20 +85,20 @@ public class StudentDto {
         this.email = email;
     }
 
-    public String getModality() {
-        return modality;
+    public Boolean getRemote() {
+        return remote;
     }
 
-    public void setModality(String modality) {
-        this.modality = modality;
+    public void setRemote(Boolean remote) {
+        this.remote = remote;
     }
 
-    public Boolean getMove() {
-        return move;
+    public Boolean getMobility() {
+        return mobility;
     }
 
-    public void setMove(Boolean move) {
-        this.move = move;
+    public void setMobility(Boolean mobility) {
+        this.mobility = mobility;
     }
 
     public String getPhotoUrl() {

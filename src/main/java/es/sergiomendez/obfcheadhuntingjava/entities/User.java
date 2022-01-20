@@ -2,15 +2,12 @@ package es.sergiomendez.obfcheadhuntingjava.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
-
-    private static final ArrayList<User> users = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
