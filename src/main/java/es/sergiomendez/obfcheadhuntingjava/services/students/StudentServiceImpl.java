@@ -26,7 +26,10 @@ public class StudentServiceImpl implements StudentService {
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository, StudentDaoImpl studentDao, UserRepository userRepository, TagRepository tagRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository,
+                              StudentDaoImpl studentDao,
+                              UserRepository userRepository,
+                              TagRepository tagRepository) {
         this.studentRepository = studentRepository;
         this.studentDao = studentDao;
         this.userRepository = userRepository;
@@ -34,25 +37,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ResponseEntity<?> getAllStudents(Integer page, Integer size, String city, Boolean remote, Boolean mobility, String[] tags) {
+    public ResponseEntity<?> getAllStudents(String city, Boolean remote, Boolean mobility, Integer page, Integer size) {
         try {
-            List<StudentDto> studentDtos = new ArrayList<>();
-            /*Pageable paging = PageRequest.of(page, size);
-
-            Page<Student> pageStudents = studentRepository
-                    .findAll(paging);
-
-            List<Student> students = pageStudents.getContent();
-*/          List<Student> students = studentDao.findAll(city, remote, mobility);
-            students.forEach(student -> {
-                studentDtos.add(getDtoFromStudent(student));
-            });
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("students", studentDtos);
-            /*response.put("currentPage", pageStudents.getNumber());
-            response.put("totalItems", pageStudents.getTotalElements());
-            response.put("totalPages", pageStudents.getTotalPages());*/
+            Map<String, Object> response = studentDao.findAll(city, remote, mobility, page, size);
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -63,43 +50,6 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
-    /*@Override
-    public ResponseEntity<?> getAllStudentsWithFilters(Integer page, Integer size, String city, Boolean remote, Boolean mobility, String[] tags) {
-        System.out.println("Page: " + page + " size: "+ size + " city: " +  city + " remote: " + remote + " mobility: " + mobility + " tags: " + Arrays.toString(tags));
-        try {
-            List<StudentDto> studentDtos = new ArrayList<>();
-            List<Tag> tagList = new ArrayList<>();
-            Arrays.stream(tags).forEach(tag -> {
-                Tag newTag = tagRepository.findByName(tag);
-                tagList.add(newTag);
-            });
-
-            Tag[] tagArray = new Tag[tagList.size()];
-            tagArray = tagList.toArray(tagArray);
-
-            Pageable paging = PageRequest.of(page, size);
-
-            Page<Student> pageStudents = studentRepository.findByCityAndModalityAndMoveAndTags(city, remote, mobility, tagArray, paging);
-
-            List<Student> students = pageStudents.getContent();
-
-            students.forEach(student -> {
-                studentDtos.add(getDtoFromStudent(student));
-            });
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("students", studentDtos);
-            response.put("currentPage", pageStudents.getNumber());
-            response.put("totalItems", pageStudents.getTotalElements());
-            response.put("totalPages", pageStudents.getTotalPages());
-
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: "+ e.getMessage()));
-        }
-    }*/
 
     @Override
     public ResponseEntity<?> getStudentByFullName(String fullName) {

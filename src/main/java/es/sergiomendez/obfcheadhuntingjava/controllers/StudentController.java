@@ -1,37 +1,22 @@
 package es.sergiomendez.obfcheadhuntingjava.controllers;
 
 import es.sergiomendez.obfcheadhuntingjava.dto.StudentDto;
-import es.sergiomendez.obfcheadhuntingjava.entities.Tag;
 import es.sergiomendez.obfcheadhuntingjava.services.students.StudentServiceImpl;
-import es.sergiomendez.obfcheadhuntingjava.services.tags.TagServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 public class StudentController {
 
     private final StudentServiceImpl studentService;
-    private final TagServiceImpl tagService;
 
     private final Logger log = LoggerFactory.getLogger(StudentController.class);
 
-    public StudentController(StudentServiceImpl studentService, TagServiceImpl tagService) {
+    public StudentController(StudentServiceImpl studentService) {
         this.studentService = studentService;
-        this.tagService = tagService;
     }
-
-    /*@GetMapping("api/students")
-    public ResponseEntity<?> findAllStudents(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "12") int size
-        ) {
-
-        return studentService.getAllStudents(page, size);
-    }*/
 
     @GetMapping("api/students")
     public ResponseEntity<?> findAllStudents(
@@ -39,11 +24,10 @@ public class StudentController {
             @RequestParam(defaultValue = "12") int size,
             @RequestParam(required = false) String city,
             @RequestParam(required = false) Boolean remote,
-            @RequestParam(required = false) Boolean mobility,
-            @RequestParam(required = false) String[] tags
+            @RequestParam(required = false) Boolean mobility
     ) {
 
-        return studentService.getAllStudents(page, size, city, remote, mobility, tags);
+        return studentService.getAllStudents(city, remote, mobility, page, size);
     }
 
     @GetMapping("api/students/{fullName}")

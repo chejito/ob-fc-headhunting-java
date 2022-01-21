@@ -1,11 +1,11 @@
 package es.sergiomendez.obfcheadhuntingjava.daos;
 
-import es.sergiomendez.obfcheadhuntingjava.entities.Student;
-
-import java.util.List;
+import java.util.Map;
 
 public interface StudentDao {
-    List<Student> findAll(String city, Boolean remote, Boolean mobility);
-
-
+    Map<String, Object> findAll(String city,
+                                Boolean remote,
+                                Boolean mobility,
+                                Integer page,
+                                Integer size);
 }
