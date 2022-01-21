@@ -118,17 +118,55 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public ResponseEntity<?> updateStudent(StudentDto studentDto) {
-        return null;
+        Set<String> dtoTags = studentDto.getTags();
+
+        String dtoUser = studentDto.getUsername();
+
+        Optional<User> userOpt = userRepository.findByUsername(dtoUser);
+        if (userOpt.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: User is not registered!"));
+        }
+
+        User user = userOpt.get();
+        Set<Tag> tags = new HashSet<>();
+
+        dtoTags.forEach(dtoTag -> {
+            if (!tagRepository.existsByName(dtoTag)) {
+                Tag newTag = new Tag(dtoTag);
+                tagRepository.save(newTag);
+            }
+            Tag tag = tagRepository.findByName(dtoTag);
+            tags.add(tag);
+        });
+
+        Student student = getStudentFromDto(studentDto);
+        student.setUser(user);
+        student.setTags(tags);
+
+        student = studentRepository.save(student);
+
+        StudentDto dto = getDtoFromStudent(student);
+
+        return ResponseEntity
+                .ok(new MessageStudentResponse("Student successfully updated: " + student.getFullname(), dto));
     }
 
     @Override
     public ResponseEntity<?> deleteStudent(String fullName) {
-        return null;
-    }
 
-    @Override
-    public ResponseEntity<?> deleteAllStudents() {
-        return null;
+        Optional<Student> studentOpt = studentRepository.findByFullname(fullName);
+        if (studentOpt.isPresent()) {
+            Student student = studentOpt.get();
+            studentRepository.delete(student);
+            return ResponseEntity
+                    .ok("Student successfully deleted: '" + student.getFullname() + "'");
+        }
+
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Error: Student does not exist!"));
     }
 
     public Student getStudentFromDto(StudentDto dto) {

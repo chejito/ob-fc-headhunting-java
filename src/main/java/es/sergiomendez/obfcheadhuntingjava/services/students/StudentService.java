@@ -10,5 +10,4 @@ public interface StudentService {
     ResponseEntity<?> createStudent(StudentDto studentDto);
     ResponseEntity<?> updateStudent(StudentDto studentDto);
     ResponseEntity<?> deleteStudent(String fullName);
-    ResponseEntity<?> deleteAllStudents();
 }
