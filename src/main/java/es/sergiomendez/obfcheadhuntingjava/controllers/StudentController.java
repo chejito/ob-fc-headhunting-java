@@ -50,8 +50,5 @@ public class StudentController {
         return studentService.deleteStudent(fullName);
     }
 
-    @DeleteMapping("/api/students")
-    public ResponseEntity<?> deleteAllStudents() {
-        return studentService.deleteAllStudents();
-    }
+
 }
