@@ -61,7 +61,7 @@ public class StudentDaoImpl implements StudentDao {
         Long totalResults = (long) query.list().size();
         int lastPageNumber = (int) Math.ceil(totalResults / size);
 
-        query.setFirstResult(Math.max((page) * size, 0));
+        query.setFirstResult(Math.max((page -1) * size, 0));
         query.setMaxResults(size);
 
         List<Student> students =  query.list();

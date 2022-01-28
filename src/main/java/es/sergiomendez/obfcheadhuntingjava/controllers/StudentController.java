@@ -20,7 +20,7 @@ public class StudentController {
 
     @GetMapping("api/students")
     public ResponseEntity<?> findAllStudents(
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "12") int size,
             @RequestParam(required = false) String city,
             @RequestParam(required = false) Boolean remote,
