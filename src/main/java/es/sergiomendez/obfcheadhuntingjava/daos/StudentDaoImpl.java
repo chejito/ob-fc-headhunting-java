@@ -72,6 +72,7 @@ public class StudentDaoImpl implements StudentDao {
 
         response.put("students", studentDtos);
             response.put("currentPage", page);
+            response.put("studentsPerPage", size);
             response.put("totalItems", totalResults);
             response.put("totalPages", lastPageNumber + 1);
 
