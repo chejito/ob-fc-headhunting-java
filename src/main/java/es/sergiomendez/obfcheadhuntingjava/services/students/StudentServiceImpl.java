@@ -37,9 +37,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ResponseEntity<?> getAllStudents(String city, Boolean remote, Boolean mobility, Integer page, Integer size) {
+    public ResponseEntity<?> getAllStudents(String city, Boolean remote, Boolean mobility, Integer page, Integer size, String[] tags) {
         try {
-            Map<String, Object> response = studentDao.findAll(city, remote, mobility, page, size);
+            Map<String, Object> response = studentDao.findAll(city, remote, mobility, page, size, tags);
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
