@@ -1,8 +1,5 @@
 package es.sergiomendez.obfcheadhuntingjava.dto;
 
-import es.sergiomendez.obfcheadhuntingjava.entities.City;
-import es.sergiomendez.obfcheadhuntingjava.entities.Country;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
