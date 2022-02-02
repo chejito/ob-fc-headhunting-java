@@ -4,7 +4,6 @@ import es.sergiomendez.obfcheadhuntingjava.dto.StudentDto;
 import es.sergiomendez.obfcheadhuntingjava.entities.Student;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

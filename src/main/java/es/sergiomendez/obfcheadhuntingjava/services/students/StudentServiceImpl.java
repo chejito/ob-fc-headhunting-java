@@ -10,13 +10,13 @@ import es.sergiomendez.obfcheadhuntingjava.entities.User;
 import es.sergiomendez.obfcheadhuntingjava.repositories.StudentRepository;
 import es.sergiomendez.obfcheadhuntingjava.repositories.TagRepository;
 import es.sergiomendez.obfcheadhuntingjava.repositories.UserRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class StudentServiceImpl implements StudentService {
