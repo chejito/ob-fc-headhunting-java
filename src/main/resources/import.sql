@@ -67,7 +67,7 @@ INSERT INTO users (full_name, user_name, email, password) VALUES ('FirstName2 La
 INSERT INTO users (full_name, user_name, email, password) VALUES ('FirstName3 LastName3', 'user3', 'user3@example.com', '$2a$10$2H2Gnl5YuLBpYhcSlDvZIexAI6GUJqFzW3Tn4enJhoA5Typ2zQjF6'); --abcde
 
 --Etiquetas
-INSERT INTO tags (name) VALUES ('html&css');
+INSERT INTO tags (name) VALUES ('html-css');
 INSERT INTO tags (name) VALUES ('bootstrap');
 INSERT INTO tags (name) VALUES ('tailwind');
 INSERT INTO tags (name) VALUES ('javascript');

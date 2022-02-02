@@ -24,10 +24,11 @@ public class StudentController {
             @RequestParam(defaultValue = "12") int size,
             @RequestParam(required = false) String city,
             @RequestParam(required = false) Boolean remote,
-            @RequestParam(required = false) Boolean mobility
+            @RequestParam(required = false) Boolean mobility,
+            @RequestParam(required = false) String[] tags
     ) {
 
-        return studentService.getAllStudents(city, remote, mobility, page, size);
+        return studentService.getAllStudents(city, remote, mobility, page, size, tags);
     }
 
     @GetMapping("api/students/{fullName}")

@@ -3,6 +3,7 @@ package es.sergiomendez.obfcheadhuntingjava.daos;
 import es.sergiomendez.obfcheadhuntingjava.dto.StudentDto;
 import es.sergiomendez.obfcheadhuntingjava.entities.Student;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ import java.util.*;
 @Repository
 public class StudentDaoImpl implements StudentDao {
 
-    private Session session;
+    private final Session session;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -24,39 +25,73 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Map<String, Object> findAll(String city,
-                                       Boolean remote,
-                                       Boolean mobility,
-                                       Integer page,
-                                       Integer size) {
-        String statement = "from Student ";
-        if (city != null || remote != null || mobility != null) {
-            statement += "where";
+                                           Boolean remote,
+                                           Boolean mobility,
+                                           Integer page,
+                                           Integer size,
+                                           String[] tags) {
 
-            String cityParam = city != null ? " city = :city " : "";
-            String remoteParam = remote != null ? " remote = :remote " : "";
-            String mobilityParam = mobility != null ? " mobility = :mobility " : "";
+        // ** Modelo de query nativa SQL **
+        // SELECT * FROM students WHERE
+        // city = 'Valencia'
+        // AND remote = true
+        // AND mobility = false
+        // AND id IN (SELECT student_id FROM students_tags WHERE tag_id = (SELECT id FROM tags WHERE name='javascript'))
+        // AND id IN (SELECT student_id FROM students_tags WHERE tag_id = (SELECT id FROM tags WHERE name='python'));
 
-            String join1 = (city == null || remote == null) ? "" : "and";
-            String join2 = (mobility == null || remote == null) ? "" : "and";
+        StringBuilder statement = new StringBuilder("SELECT * FROM students");
 
-            statement = statement + cityParam + join1 + remoteParam + join2 + mobilityParam;
+        if (city != null || remote != null || mobility != null || tags != null) {
+            statement.append(" WHERE");
         }
 
-        System.out.println(statement);
-
-        Query query = session.createQuery(statement);
-
         if (city != null) {
-            query.setParameter("city", city);
+            statement
+                    .append(" city = '")
+                    .append(city)
+                    .append("'");
+        }
+
+        if (city != null && remote != null) {
+            statement
+                    .append(" AND");
         }
 
         if (remote != null) {
-            query.setParameter("remote", remote);
+            statement
+                    .append(" remote = '")
+                    .append(remote)
+                    .append("'");
+        }
+
+        if ((city != null || remote != null) && mobility != null) {
+            statement
+                    .append(" AND");
         }
 
         if (mobility != null) {
-            query.setParameter("mobility", mobility);
+            statement
+                    .append(" mobility = '")
+                    .append(mobility)
+                    .append("'");
         }
+        if (tags != null) {
+            for (int i = 0; i < tags.length; i++) {
+                if (i == 0 && city == null && remote == null && mobility == null) {
+                    statement
+                            .append(" id IN (SELECT student_id FROM students_tags WHERE tag_id = (SELECT id FROM tags WHERE name='")
+                            .append(tags[i])
+                            .append("'))");
+                } else {
+                    statement
+                            .append(" AND id IN (SELECT student_id FROM students_tags WHERE tag_id = (SELECT id FROM tags WHERE name='")
+                            .append(tags[i])
+                            .append("'))");
+                }
+            }
+        }
+
+        NativeQuery<Student> query = session.createNativeQuery(statement.toString(), Student.class);
 
         Long totalResults = (long) query.list().size();
         int lastPageNumber = (int) Math.ceil(totalResults / size);
@@ -71,10 +106,10 @@ public class StudentDaoImpl implements StudentDao {
         students.forEach(student -> studentDtos.add(getDtoFromStudent(student)));
 
         response.put("students", studentDtos);
-            response.put("currentPage", page);
-            response.put("studentsPerPage", size);
-            response.put("totalItems", totalResults);
-            response.put("totalPages", lastPageNumber + 1);
+        response.put("currentPage", page);
+        response.put("studentsPerPage", size);
+        response.put("totalItems", totalResults);
+        response.put("totalPages", lastPageNumber + 1);
 
         return response;
     }
