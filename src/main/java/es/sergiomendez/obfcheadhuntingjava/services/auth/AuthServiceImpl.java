@@ -1,12 +1,9 @@
 package es.sergiomendez.obfcheadhuntingjava.services.auth;
 
+import es.sergiomendez.obfcheadhuntingjava.dto.*;
 import es.sergiomendez.obfcheadhuntingjava.entities.User;
 import es.sergiomendez.obfcheadhuntingjava.repositories.UserRepository;
 import es.sergiomendez.obfcheadhuntingjava.security.jwt.JwtTokenUtil;
-import es.sergiomendez.obfcheadhuntingjava.dto.JwtResponse;
-import es.sergiomendez.obfcheadhuntingjava.dto.LoginRequest;
-import es.sergiomendez.obfcheadhuntingjava.dto.MessageResponse;
-import es.sergiomendez.obfcheadhuntingjava.dto.RegisterRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,9 +47,12 @@ public class AuthServiceImpl implements AuthService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtTokenUtil.generateJwtToken(authentication);
 
+            UserDto userDto = new UserDto(user.getUsername(), user.getEmail(), user.getFullname());
+
             // UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-            return ResponseEntity.ok(new JwtResponse(jwt));
+
+            return ResponseEntity.ok(new JwtResponse(jwt, userDto));
         }
 
 
