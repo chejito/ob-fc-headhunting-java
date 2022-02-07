@@ -1,7 +1,5 @@
 package es.sergiomendez.obfcheadhuntingjava.dto;
 
-import es.sergiomendez.obfcheadhuntingjava.entities.Tag;
-
 public class TagDto {
     private String name;
 
@@ -20,10 +18,4 @@ public class TagDto {
         this.name = name;
     }
 
-    public Tag getTagFromDto() {
-        Tag tag = new Tag();
-        tag.setName(name);
-
-        return tag;
-    }
 }
