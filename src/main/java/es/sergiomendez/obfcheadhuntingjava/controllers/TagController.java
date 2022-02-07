@@ -1,7 +1,6 @@
 package es.sergiomendez.obfcheadhuntingjava.controllers;
 
 import es.sergiomendez.obfcheadhuntingjava.dto.TagDto;
-import es.sergiomendez.obfcheadhuntingjava.entities.Tag;
 import es.sergiomendez.obfcheadhuntingjava.services.tags.TagServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class TagController {
@@ -25,7 +25,7 @@ public class TagController {
     }
 
     @GetMapping("/api/tags")
-    public List<Tag> findAllTags() {
+    public Map<String, List<String>> findAllTags() {
         return tagService.getAllTags();
     }
 

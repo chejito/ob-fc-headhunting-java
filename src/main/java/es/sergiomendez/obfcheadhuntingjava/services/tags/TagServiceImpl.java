@@ -7,7 +7,10 @@ import es.sergiomendez.obfcheadhuntingjava.dto.MessageResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TagServiceImpl implements TagService {
@@ -27,7 +30,7 @@ public class TagServiceImpl implements TagService {
                     .body(new MessageResponse("Error: Tag already exists!"));
         }
 
-        Tag tag = tagDto.getTagFromDto();
+        Tag tag = new Tag(tagDto.getName());
         tag = repository.save(tag);
 
 
@@ -35,9 +38,15 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> getAllTags() {
-        return repository.findAll();
-    }
+    public Map<String, List<String>> getAllTags() {
+        List<Tag> tags = repository.findAll();
+        List<String> tagnames = new ArrayList<>();
+        tags.forEach(x -> tagnames.add(x.getName()));
+        Map<String, List<String>> taglist = new HashMap<>();
+        taglist.put("tags", tagnames);
+
+        return taglist;
+     }
 
 
 }
