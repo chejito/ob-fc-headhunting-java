@@ -4,10 +4,13 @@ public class JwtResponse {
 
     private String token;
 
-    public JwtResponse() {
-    }
-    public JwtResponse(String token) {
+    private UserDto user;
+
+    public JwtResponse() {}
+
+    public JwtResponse(String token, UserDto user) {
         this.token = token;
+        this.user = user;
     }
 
     public String getToken() {
@@ -18,4 +21,11 @@ public class JwtResponse {
         this.token = token;
     }
 
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
 }
