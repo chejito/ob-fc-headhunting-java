@@ -9,4 +9,5 @@ import java.util.Map;
 public interface TagService {
     ResponseEntity<?> createTag(TagDto tagDto);
     Map<String, List<String>> getAllTags();
+    List<String> getTagList();
 }

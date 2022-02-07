@@ -40,13 +40,22 @@ public class TagServiceImpl implements TagService {
     @Override
     public Map<String, List<String>> getAllTags() {
         List<Tag> tags = repository.findAll();
-        List<String> tagnames = new ArrayList<>();
-        tags.forEach(x -> tagnames.add(x.getName()));
-        Map<String, List<String>> taglist = new HashMap<>();
-        taglist.put("tags", tagnames);
+        List<String> tagList = new ArrayList<>();
+        tags.forEach(x -> tagList.add(x.getName()));
+        Map<String, List<String>> tagMap = new HashMap<>();
+        tagMap.put("tags", tagList);
 
-        return taglist;
+        return tagMap;
      }
+
+    @Override
+    public List<String> getTagList() {
+        List<Tag> tags = repository.findAll();
+        List<String> tagList = new ArrayList<>();
+        tags.forEach(x -> tagList.add(x.getName()));
+
+        return tagList;
+    }
 
 
 }
