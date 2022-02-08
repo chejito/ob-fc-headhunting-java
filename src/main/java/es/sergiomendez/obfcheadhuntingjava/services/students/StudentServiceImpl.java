@@ -141,7 +141,24 @@ public class StudentServiceImpl implements StudentService {
             tags.add(tag);
         });
 
-        Student student = getStudentFromDto(studentDto);
+        Optional<Student> studentOpt = studentRepository.findByFullname(studentDto.getFullname());
+        if (studentOpt.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Student is not registered!"));
+        }
+
+        Student student = studentOpt.get();
+
+        student.setFullname(studentDto.getFullname());
+        student.setEmail(studentDto.getEmail());
+        student.setPhoneNumber(studentDto.getPhoneNumber());
+        student.setCity(studentDto.getCity());
+        student.setCountry(studentDto.getCountry());
+        student.setMobility(studentDto.getMobility());
+        student.setRemote(studentDto.getRemote());
+        student.setResumeUrl(studentDto.getResumeUrl());
+        student.setPhotoUrl(studentDto.getPhotoUrl());
         student.setUser(user);
         student.setTags(tags);
 
