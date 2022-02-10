@@ -10,10 +10,10 @@ public class StudentDto {
     private String city;
     private String phoneNumber;
     private String email;
-    private Boolean remote;
+    private Boolean modality;
     private Boolean mobility;
     private String photoUrl;
-    private String resumeUrl;
+    private String resumeeUrl;
 
     //    Relaciones
     private String username;
@@ -26,10 +26,10 @@ public class StudentDto {
                       String city,
                       String phoneNumber,
                       String email,
-                      Boolean remote,
+                      Boolean modality,
                       Boolean mobility,
                       String photoUrl,
-                      String resumeUrl,
+                      String resumeeUrl,
                       String username,
                       Set<String> tags) {
         this.fullname = fullname;
@@ -37,10 +37,10 @@ public class StudentDto {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.remote = remote;
+        this.modality = modality;
         this.mobility = mobility;
         this.photoUrl = photoUrl;
-        this.resumeUrl = resumeUrl;
+        this.resumeeUrl = resumeeUrl;
         this.username = username;
         this.tags = tags;
     }
@@ -85,12 +85,12 @@ public class StudentDto {
         this.email = email;
     }
 
-    public Boolean getRemote() {
-        return remote;
+    public Boolean getModality() {
+        return modality;
     }
 
-    public void setRemote(Boolean remote) {
-        this.remote = remote;
+    public void setModality(Boolean modality) {
+        this.modality = modality;
     }
 
     public Boolean getMobility() {
@@ -109,12 +109,12 @@ public class StudentDto {
         this.photoUrl = photoUrl;
     }
 
-    public String getResumeUrl() {
-        return resumeUrl;
+    public String getResumeeUrl() {
+        return resumeeUrl;
     }
 
-    public void setResumeUrl(String resumeUrl) {
-        this.resumeUrl = resumeUrl;
+    public void setResumeeUrl(String resumeeUrl) {
+        this.resumeeUrl = resumeeUrl;
     }
 
     public String getUsername() {

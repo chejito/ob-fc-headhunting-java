@@ -156,8 +156,8 @@ public class StudentServiceImpl implements StudentService {
         student.setCity(studentDto.getCity());
         student.setCountry(studentDto.getCountry());
         student.setMobility(studentDto.getMobility());
-        student.setRemote(studentDto.getRemote());
-        student.setResumeUrl(studentDto.getResumeUrl());
+        student.setModality(studentDto.getModality());
+        student.setResumeeUrl(studentDto.getResumeeUrl());
         student.setPhotoUrl(studentDto.getPhotoUrl());
         student.setUser(user);
         student.setTags(tags);
@@ -194,10 +194,10 @@ public class StudentServiceImpl implements StudentService {
         student.setCity(dto.getCity());
         student.setPhoneNumber(dto.getPhoneNumber());
         student.setEmail(dto.getEmail());
-        student.setRemote(dto.getRemote());
+        student.setModality(dto.getModality());
         student.setMobility(dto.getMobility());
         student.setPhotoUrl(dto.getPhotoUrl());
-        student.setResumeUrl(dto.getResumeUrl());
+        student.setResumeeUrl(dto.getResumeeUrl());
 
         return student;
     }
@@ -210,10 +210,10 @@ public class StudentServiceImpl implements StudentService {
         dto.setCity(student.getCity());
         dto.setPhoneNumber(student.getPhoneNumber());
         dto.setEmail(student.getEmail());
-        dto.setRemote(student.getRemote());
+        dto.setModality(student.getModality());
         dto.setMobility(student.getMobility());
         dto.setPhotoUrl(student.getPhotoUrl());
-        dto.setResumeUrl(student.getResumeUrl());
+        dto.setResumeeUrl(student.getResumeeUrl());
         dto.setUsername(student.getUser().getUsername());
 
         Set<String> dtoTags = new HashSet<>();

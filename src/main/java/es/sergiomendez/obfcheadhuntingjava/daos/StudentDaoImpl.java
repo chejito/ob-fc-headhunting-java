@@ -121,10 +121,10 @@ public class StudentDaoImpl implements StudentDao {
         dto.setCity(student.getCity());
         dto.setPhoneNumber(student.getPhoneNumber());
         dto.setEmail(student.getEmail());
-        dto.setRemote(student.getRemote());
+        dto.setModality(student.getModality());
         dto.setMobility(student.getMobility());
         dto.setPhotoUrl(student.getPhotoUrl());
-        dto.setResumeUrl(student.getResumeUrl());
+        dto.setResumeeUrl(student.getResumeeUrl());
         dto.setUsername(student.getUser().getUsername());
 
         Set<String> dtoTags = new HashSet<>();
