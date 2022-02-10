@@ -26,7 +26,7 @@ public class Student implements Serializable {
     @Column(nullable = false, length = 50, unique = true)
     private String email;
 
-    private Boolean remote;
+    private Boolean modality;
 
     private Boolean mobility;
 
@@ -34,7 +34,7 @@ public class Student implements Serializable {
     private String photoUrl;
 
     @Column(name = "resumee_url")
-    private String resumeUrl;
+    private String resumeeUrl;
 
 //    Relaciones
     @ManyToOne
@@ -53,29 +53,29 @@ public class Student implements Serializable {
     public Student() {}
 
     public Student(String fullname, String country, String city, String phoneNumber, String email,
-                   Boolean remote, Boolean mobility, String photoUrl, String resumeUrl) {
+                   Boolean modality, Boolean mobility, String photoUrl, String resumeeUrl) {
         this.fullname = fullname;
         this.country = country;
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.remote = remote;
+        this.modality = modality;
         this.mobility = mobility;
         this.photoUrl = photoUrl;
-        this.resumeUrl = resumeUrl;
+        this.resumeeUrl = resumeeUrl;
     }
 
-    public Student(Long id, String fullname, String country, String city, String phoneNumber, String email, Boolean remote, Boolean mobility, String photoUrl, String resumeUrl) {
+    public Student(Long id, String fullname, String country, String city, String phoneNumber, String email, Boolean modality, Boolean mobility, String photoUrl, String resumeeUrl) {
         this.id = id;
         this.fullname = fullname;
         this.country = country;
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.remote = remote;
+        this.modality = modality;
         this.mobility = mobility;
         this.photoUrl = photoUrl;
-        this.resumeUrl = resumeUrl;
+        this.resumeeUrl = resumeeUrl;
     }
 
     public Long getId() {
@@ -126,12 +126,12 @@ public class Student implements Serializable {
         this.email = email;
     }
 
-    public Boolean getRemote() {
-        return remote;
+    public Boolean getModality() {
+        return modality;
     }
 
-    public void setRemote(Boolean remote) {
-        this.remote = remote;
+    public void setModality(Boolean modality) {
+        this.modality = modality;
     }
 
     public Boolean getMobility() {
@@ -150,12 +150,12 @@ public class Student implements Serializable {
         this.photoUrl = photoUrl;
     }
 
-    public String getResumeUrl() {
-        return resumeUrl;
+    public String getResumeeUrl() {
+        return resumeeUrl;
     }
 
-    public void setResumeUrl(String resumeUrl) {
-        this.resumeUrl = resumeUrl;
+    public void setResumeeUrl(String resumeeUrl) {
+        this.resumeeUrl = resumeeUrl;
     }
 
     public User getUser() {
@@ -183,10 +183,10 @@ public class Student implements Serializable {
                 ", city='" + city + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", remote='" + remote + '\'' +
+                ", remote='" + modality + '\'' +
                 ", mobility=" + mobility +
                 ", photoUrl='" + photoUrl + '\'' +
-                ", resumeUrl='" + resumeUrl + '\'' +
+                ", resumeUrl='" + resumeeUrl + '\'' +
                 '}';
     }
 
