@@ -24,7 +24,7 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Map<String, Object> findAll(String city,
-                                           Boolean remote,
+                                           Boolean modality,
                                            Boolean mobility,
                                            Integer page,
                                            Integer size,
@@ -33,14 +33,14 @@ public class StudentDaoImpl implements StudentDao {
         // ** Modelo de query nativa SQL **
         // SELECT * FROM students WHERE
         // city = 'Valencia'
-        // AND remote = true
+        // AND modality = true
         // AND mobility = false
         // AND id IN (SELECT student_id FROM students_tags WHERE tag_id = (SELECT id FROM tags WHERE name='javascript'))
         // AND id IN (SELECT student_id FROM students_tags WHERE tag_id = (SELECT id FROM tags WHERE name='python'));
 
         StringBuilder statement = new StringBuilder("SELECT * FROM students");
 
-        if (city != null || remote != null || mobility != null || tags != null) {
+        if (city != null || modality != null || mobility != null || tags != null) {
             statement.append(" WHERE");
         }
 
@@ -51,19 +51,19 @@ public class StudentDaoImpl implements StudentDao {
                     .append("'");
         }
 
-        if (city != null && remote != null) {
+        if (city != null && modality != null) {
             statement
                     .append(" AND");
         }
 
-        if (remote != null) {
+        if (modality != null) {
             statement
-                    .append(" remote = '")
-                    .append(remote)
+                    .append(" modality = '")
+                    .append(modality)
                     .append("'");
         }
 
-        if ((city != null || remote != null) && mobility != null) {
+        if ((city != null || modality != null) && mobility != null) {
             statement
                     .append(" AND");
         }
@@ -76,7 +76,7 @@ public class StudentDaoImpl implements StudentDao {
         }
         if (tags != null) {
             for (int i = 0; i < tags.length; i++) {
-                if (i == 0 && city == null && remote == null && mobility == null) {
+                if (i == 0 && city == null && modality == null && mobility == null) {
                     statement
                             .append(" id IN (SELECT student_id FROM students_tags WHERE tag_id = (SELECT id FROM tags WHERE name='")
                             .append(tags[i])

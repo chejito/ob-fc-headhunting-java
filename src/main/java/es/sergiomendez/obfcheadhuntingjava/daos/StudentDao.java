@@ -5,7 +5,7 @@ import java.util.Map;
 public interface StudentDao {
 
     Map<String, Object> findAll(String city,
-                                Boolean remote,
+                                Boolean modality,
                                 Boolean mobility,
                                 Integer page,
                                 Integer size,
